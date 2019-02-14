@@ -1,0 +1,19 @@
+filebeat.inputs:
+  - type: stdin
+
+output.kafka:
+  topic: ${HUB}
+  required_acks: 1
+  client_id: filebeat
+  version: '1.0.0'
+  hosts:
+    - ${NAMESPACE}.servicebus.windows.net:9093
+
+  username: "$ConnectionString"
+  password: Endpoint=sb://${NAMESPACE}.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=${KEY}
+  ssl.enabled: true
+
+logging:
+  level: debug
+  to_files: false
+  to_syslog: false
